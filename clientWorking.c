@@ -149,9 +149,14 @@ int main(void) {
     char input[500];
     int numbytes;
     
-    //printf("your username:\n");
+    printf("your username:\n");
     char user[50];
+    //char dest[50];
+    //memset(dest,'\0',sizeof(dest));
+    
     fgets(user,50,stdin);
+    user[strcspn(user,"\n")]='\0';
+    
     send(sockfd, user, strlen(user)+1, 0);
     
     // main loop
@@ -176,6 +181,7 @@ int main(void) {
                     //printf("here11\n");
                     //printf("my input is : %s", input);
                     //send data to port
+                    input[strcspn(input,"\n")]='\0';
                     if ((numbytes = send(sockfd, input, strlen(input)+1, 0)) == -1) {
                         printf("here10\n");
                         perror("talker: send");
@@ -203,7 +209,7 @@ int main(void) {
                     } else {
                         // we got some data from a client
                         //printf("here15\n");
-                        //printf("%s\n", buf);
+                        printf("%s\n", buf);
                     }
                     //printf("here14\n");
 
